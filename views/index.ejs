@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Node.js Express MongoDB Form</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Node.js Express MongoDB Form</h1>
+    <form action="/add-user" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <h1>User List</h1>
+    <table id="usersTable">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+        <!-- Rows will be added here -->
+      </table>
+      <script>
+        fetch('http://127.0.0.1:3000/users')
+          .then(response => response.json())
+          .then(data => {
+            const table = document.getElementById('usersTable');
+            data.forEach(user => {
+              const row = table.insertRow();
+              const cell1 = row.insertCell();
+              const cell2 = row.insertCell();
+              cell1.textContent = user.name;
+              cell2.textContent = user.email;
+            });
+          })
+          .catch(error => console.error('Error:', error));
+        </script>
+</body>
+</html>
